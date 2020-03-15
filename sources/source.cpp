@@ -20,7 +20,9 @@ struct Client {
     }
 };
 
+
 int main(){
+    std::chrono::milliseconds d1 = 1ms;
     std::recursive_mutex mutex;
     logging::add_file_log
     (
@@ -41,12 +43,12 @@ int main(){
             acceptor.accept(client -> socket);
             std::scoped_lock lock(mutex);
             clients.push_back(client);
-            std::this_thread::sleep_for(1ms);
+            std::this_thread::sleep_for(d1);
         }
     });
     std::thread clientHandler([&mutex, &clients, &lg](){
         while (true) {
-            std::this_thread::sleep_for(1ms);
+            std::this_thread::sleep_for(d1);
             std::scoped_lock lock(mutex);
             for (const auto &client : clients) {
                 error_code error;
@@ -110,6 +112,6 @@ int main(){
     connectionHandler.detach();
     clientHandler.detach();
     while (true) {
-        std::this_thread::sleep_for(1ms);
+        std::this_thread::sleep_for(d1);
     }
 }
