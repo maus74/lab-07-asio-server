@@ -51,9 +51,7 @@ target_include_directories(template
 target_include_directories(tests 
   PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-target_include_directories(localTest
-        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
+
 target_link_libraries(template
         ${CMAKE_THREAD_LIBS_INIT}
         Boost::log_setup
